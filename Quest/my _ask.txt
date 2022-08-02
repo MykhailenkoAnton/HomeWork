@@ -1,0 +1,11 @@
+Яе викликати об’єкт з nested namespace? (C++OOP.txt/line 410)
+
+Чи може мати імплементацію pure virtual function?
+Що трапиться, якщо викликати pure virtual function з конструктора?
+(C++OOP.txt/line 474)
+
+Як отримати найменше значення типу? (STL.txt/line 75)
+
+Що таке атомарна операція?(multithreading.txt/line 193)
+
+Які етапи під час коміту змін? (SMC.txt/line 29)
