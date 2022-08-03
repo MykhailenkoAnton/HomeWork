@@ -16,7 +16,7 @@ set(SOURCE_FILES
     # C++_Learning/tasks_from_google.cpp
     # C++_Learning/sen.cpp
     # Quest/fibonacci.cpp
-    Practice/which_world.cpp
+    Practice/reverse_strings.cpp
 )
 
 # Add headers files.
