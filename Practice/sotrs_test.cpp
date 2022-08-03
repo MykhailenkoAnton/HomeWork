@@ -2,40 +2,40 @@
 const int SIZE = 10;
 
 //bubble sort
-void AnySortr(int * arr, int size)
-{
-    for (int i = 0; i < size; i++)
-    {
-        for (int j = size - 1; i < j; j--)
-        {
-            if (arr[i] > arr[j])
-            {
-                int temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
-            }
-            
-        }
-        
-    }
-    
-}
-
-// insert
 // void AnySortr(int * arr, int size)
 // {
-//     for (int i = 1; i < size; i++)
+//     for (int i = 0; i < size; i++)
 //     {
-//         int temp = arr[i];
-//         int j;
-//         for (j = i - 1; j >= 0 && arr[j] > temp; j--)
+//         for (int j = size - 1; i < j; j--)
 //         {
-//             arr[j + 1] = arr[j];
+//             if (arr[i] > arr[j])
+//             {
+//                 int temp = arr[i];
+//                 arr[i] = arr[j];
+//                 arr[j] = temp;
+//             }
+            
 //         }
-//         arr[j + 1] = temp;
+        
 //     }
     
 // }
+
+// insert
+void AnySortr(int * arr, int size)
+{
+    for (int i = 1; i < size; i++)
+    {
+        int temp = arr[i];
+        int j;
+        for (j = i - 1; j >= 0 && arr[j] > temp; j--)
+        {
+            arr[j + 1] = arr[j];
+        }
+        arr[j + 1] = temp;
+    }
+    
+}
 
 void Show(int * arr, int size)
 {
