@@ -16,7 +16,7 @@ set(SOURCE_FILES
     # C++_Learning/tasks_from_google.cpp
     # C++_Learning/sen.cpp
     # Quest/fibonacci.cpp
-    Practice/from_int_to_str.cpp
+    Practice/unordered_map.cpp
 )
 
 # Add headers files.
