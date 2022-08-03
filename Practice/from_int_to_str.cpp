@@ -7,7 +7,7 @@ std::string FromStrToInt(int num)
     for (int i = num; i >= 1; i /= 10)
     {
         char temo = (i % 10) + '0';
-        result += temo;
+        result.insert(result.begin(), 1, temo);
     }
     return result;
 }
