@@ -312,7 +312,6 @@ namespace MyV
     template <typename T>
     myVector::myVector::Iterator<T>::~Iterator()
     {
-        delete type;
     }
 
     template <typename T>
