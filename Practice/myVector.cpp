@@ -1,9 +1,7 @@
 #include <iostream>
 #include <memory>
-
 // insert
 // erase
-
 namespace MyV
 {
     class myVector
@@ -37,11 +35,17 @@ namespace MyV
             Iterator(T * t);
             ~Iterator();
             Iterator & operator=(const Iterator & other);
-            Iterator & operator++();
-            Iterator & operator++(int i);
+            T * operator++();
+            T * operator++(int i);
+            T * operator--();
             T & operator*();
-            // T * operator->();
+            T * operator->();
             T * operator+(int index);
+            T * operator-(int index);
+            bool operator==(const Iterator & other);
+            bool operator!=(const Iterator & other);
+
+            
         };
     public:
         myVector();
@@ -57,9 +61,10 @@ namespace MyV
         int & operator*();
         const int & operator*() const;
         int * operator+(int index);
+        
 
         Iterator<int> begin();
-        int * end();
+        Iterator<int> end();
 
         int size() const;
         int capacity() const;
@@ -73,21 +78,25 @@ namespace MyV
         void clear();
         void swap(myVector & mv);
         void reverse();
-        void insert(int * it, const int & value)
+        void insert(int * it, const int & value);
+        void erase(int * it)
         {
-            std::cout << it << std::endl;
-            if (!isEmpty())
+            Iterator<int> IT_1(it);
+            for (auto it = IT_1 + 1; it != end(); it++)
             {
-                if (_capacity <= _size)
-                {
-                    reallocationMemory();
-                }
+                *(it - 1) = *it;
             }
+            clearMemory();
+            --_size;
 
         }
     public:
         friend std::ostream & operator<<(std::ostream & os, const myVector & mv);
+        friend bool operator !=(int * it, const Iterator<int> & it2);
     };
+    
+
+    // Vector
     
     myVector::myVector()
     {
@@ -138,14 +147,20 @@ namespace MyV
         return mv.out(os);
     }
 
-    myVector::Iterator<int> myVector::begin() 
+    bool operator !=(int * it, const myVector::Iterator<int> & it2)
     {
-        return Iterator<int>(_array);
+        myVector::Iterator<int> IT(it);
+        return IT != it2;
     }
 
-    int * myVector::end() 
+    myVector::Iterator<int> myVector::begin() 
     {
-        return _array + _size;
+        return Iterator<int> (_array);
+    }
+
+    myVector::Iterator<int> myVector::end() 
+    {
+        return Iterator<int> (_array + _size);
     }
 
     int & myVector::operator*()
@@ -255,6 +270,24 @@ namespace MyV
     }
 
 
+    void myVector::insert(int * it, const int & value)
+    {
+        MyV::myVector::Iterator<int> now = it;
+        if (!isEmpty())
+        {
+            if (_capacity <= _size)
+            {
+                reallocationMemory();
+            }
+            ++_size;
+            for (auto it = end(); it != now; --it)
+            {
+                *it = *(it - 1);
+            }
+            *(now + 1) = value;
+        }
+    }
+
     myVector::myVector(const myVector & mv)
     {
         _array = new int[mv._capacity];
@@ -325,16 +358,16 @@ namespace MyV
     }
 
     template <typename T>
-    myVector::Iterator<T> & myVector::Iterator<T>::operator++()
+    T * myVector::Iterator<T>::operator++()
     {
         ++type;
-        return *type;
+        return type;
     }
 
     template <typename T>
-    myVector::Iterator<T> & myVector::Iterator<T>::operator++(int i)
+    T * myVector::Iterator<T>::operator++(int i)
     {
-        Iterator temp(type);
+        T * temp(type);
         ++type;
         return temp;
     }
@@ -345,112 +378,79 @@ namespace MyV
         return *type;
     }
 
-    // template <typename T>
-    // T* myVector::Iterator<T>::operator->()
-    // {
-    //     return type;
-    // }
+    template <typename T>
+    T* myVector::Iterator<T>::operator->()
+    {
+        return type;
+    }
 
     template <typename T>
     T * myVector::Iterator<T>::operator+(int index)
     {
         return type + index;
     }
+
+    template <typename T>
+    bool myVector::Iterator<T>::operator==(const Iterator & other)
+    {
+        return type == other.type;
+    }
+
+    template <typename T>
+    bool myVector::Iterator<T>::operator!=(const Iterator & other)
+    {
+        return !(*this == other);
+    }
+
+    template <typename T>
+    T * myVector::Iterator<T>::operator--()
+    {
+        --type;
+        return type;
+    }
+
+    template <typename T>
+    T * myVector::Iterator<T>::operator-(int index)
+    {
+        return type - index;
+    }
+
 }
 
 #include <vector>
 int main()
 {
-    // MyV::myVector mv;
-    // mv.push_back(101);
-    // mv.push_back(10);
-    // mv.push_back(1333);
-    // mv.Show();
-    // std::cout << std::endl;
-    // MyV::myVector mv1(5);
+    MyV::myVector a;
 
-    // for (int i = 0; i < 5; i++)
-    // {
-    //     mv1[i] = i + 13;
-    // }
-    // mv1.Show();
-    // std::cout << std::endl;
-    // std::cout << "mv capacity = " << mv.capacity() << " mv size = " << mv.size() << std::endl;
-    // std::cout << "mv1 capacity = " << mv1.capacity() << " mv1 size = " << mv1.size() << std::endl;
-
-    // mv1.push_back(201);
-    // mv1.Show();
-    // std::cout << std::endl;
-    // std::cout << "mv capacity = " << mv.capacity() << " mv size = " << mv.size() << std::endl;
-    // std::cout << "mv1 capacity = " << mv1.capacity() << " mv1 size = " << mv1.size() << std::endl;
-
-
+    for (int i = 0; i < 10; i++)
+    {
+        a.push_back((i + 1));
+    }
+    a.insert(a.begin() + 6, 25);
     
-    // mv1.push_front(101);
-    // mv1.Show();
-    // std::cout << std::endl;
-    // std::cout << "mv capacity = " << mv.capacity() << " mv size = " << mv.size() << std::endl;
-    // std::cout << "mv1 capacity = " << mv1.capacity() << " mv1 size = " << mv1.size() << std::endl;
-
-    // mv1.pop_back();
-    // mv1.Show();
-    // std::cout << std::endl;
-    // std::cout << "mv capacity = " << mv.capacity() << " mv size = " << mv.size() << std::endl;
-    // std::cout << "mv1 capacity = " << mv1.capacity() << " mv1 size = " << mv1.size() << std::endl;
-
-    // mv1.pop_front();
-    // mv1.Show();
-    // std::cout << std::endl;
-    // std::cout << "mv capacity = " << mv.capacity() << " mv size = " << mv.size() << std::endl;
-    // std::cout << "mv1 capacity = " << mv1.capacity() << " mv1 size = " << mv1.size() << std::endl;
-
-
-    // mv1.clear();
-    // mv1.Show();
-    // std::cout << std::endl;
-    // std::cout << "mv capacity = " << mv.capacity() << " mv size = " << mv.size() << std::endl;
-    // std::cout << "mv1 capacity = " << mv1.capacity() << " mv1 size = " << mv1.size() << std::endl;
-
-
-    MyV::myVector m1;
-
-    m1.push_back(13);
-    m1.push_back(14);
-    m1.push_back(15);
-    m1.push_back(1);
-    m1.push_back(15);
-    std::cout << "m1 = ";
-    m1.Show();
+    for (auto it = a.begin(); it != a.end(); ++it)
+    {
+        std::cout << *it << ' ';
+    }
     std::cout << std::endl;
+    std::cout << "mv1 capacity = " << a.capacity() << " mv1 size = " << a.size() << std::endl;
 
-    std::cout << (m1.begin() + 3);
+    a.insert(a.end() - 4, 1000);
+
+    for (auto it = a.begin(); it != a.end(); ++it)
+    {
+        std::cout << *it << ' ';
+    }
     std::cout << std::endl;
-    m1.insert(m1.begin() + 3, 19);
-    m1.Show();
+    std::cout << "mv1 capacity = " << a.capacity() << " mv1 size = " << a.size() << std::endl;
+
+    a.erase(a.begin() + 1);
+
+    for (auto it = a.begin(); it != a.end(); ++it)
+    {
+        std::cout << *it << ' ';
+    }
     std::cout << std::endl;
-
-    // MyV::myVector m2;
-
-    // m2.push_back(21);
-    // m2.push_back(22);
-    // m2.push_back(23);
-    // std::cout << "m2 = ";
-    // m2.Show();
-    // std::cout << std::endl;
-
-    // m1.swap(m2);
-    // std::cout << "m1 = ";
-    // m1.Show();
-    // std::cout << std::endl;
-    // std::cout << "m2 = ";
-    // m2.Show();
-    // std::cout << std::endl;
-    // std::cout << "m2 reverse = ";
-    // m2.reverse();
-    // m2.Show();
-    // std::cout << std::endl;
-
-    
-    
+    std::cout << "mv1 capacity = " << a.capacity() << " mv1 size = " << a.size() << std::endl;
     return 0;
 }
