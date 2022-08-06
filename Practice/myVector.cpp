@@ -1,7 +1,5 @@
 #include <iostream>
 #include <memory>
-// insert
-// erase
 namespace MyV
 {
     class myVector
@@ -79,17 +77,8 @@ namespace MyV
         void swap(myVector & mv);
         void reverse();
         void insert(int * it, const int & value);
-        void erase(int * it)
-        {
-            Iterator<int> IT_1(it);
-            for (auto it = IT_1 + 1; it != end(); it++)
-            {
-                *(it - 1) = *it;
-            }
-            clearMemory();
-            --_size;
-
-        }
+        void erase(int * it);
+        
     public:
         friend std::ostream & operator<<(std::ostream & os, const myVector & mv);
         friend bool operator !=(int * it, const Iterator<int> & it2);
@@ -288,6 +277,18 @@ namespace MyV
         }
     }
 
+    void myVector::erase(int * it)
+    {
+        Iterator<int> IT_1(it);
+        for (auto it = IT_1 + 1; it != end(); it++)
+        {
+            *(it - 1) = *it;
+        }
+        clearMemory();
+        --_size;
+
+    }
+
     myVector::myVector(const myVector & mv)
     {
         _array = new int[mv._capacity];
@@ -335,6 +336,8 @@ namespace MyV
         }
         return *this;
     }
+
+
 
     //iterator
     template <typename T>
