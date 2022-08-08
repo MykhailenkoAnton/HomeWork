@@ -272,6 +272,10 @@ namespace MyV
             }
             *(now + 1) = value;
         }
+        else
+        {
+            push_back(value);
+        }
     }
 
     void myVector::insert(int * it1, int * it2, int * it3)
@@ -298,6 +302,14 @@ namespace MyV
                 *(START) = *It_3;
             }
         }
+        else
+        {
+            while (It_2 != It_3)
+            {
+                push_back(*It_2);
+                It_2++;
+            }
+        }
     }
 
     void myVector::erase(int * it)
@@ -306,9 +318,15 @@ namespace MyV
         for (auto it = IT_1 + 1; it != end(); it++)
         {
             *(it - 1) = *it;
+            if (!(it != end()))
+            {
+                throw "NOOO!\n";
+            }
+            
         }
         clearMemory();
         --_size;
+        
     }
 
     void myVector::erase(int * it1, int * it2)
@@ -319,6 +337,10 @@ namespace MyV
         {
             for (auto it = IT_1 + 1; it != end(); it++)
             {
+                if (!(it != end()))
+                {
+                    throw "NOOO!\n";
+                }
                 *(it - 1) = *it;
             }
             clearMemory();
@@ -335,6 +357,10 @@ namespace MyV
         {
             for (auto it = IT_1 + 1; it != end(); it++)
             {
+                if (!(it != end()))
+                {
+                    throw "NOOO!\n";
+                }
                 *(it - 1) = *it;
             }
             clearMemory();
@@ -351,6 +377,11 @@ namespace MyV
         {
             for (auto it = IT_1 + 1; it != end(); it++)
             {
+                if (!(it != end()))
+                {
+                    throw "EXPECTED\n";
+                }
+                
                 *(it - 1) = *it;
             }
             clearMemory();
@@ -485,81 +516,11 @@ namespace MyV
     {
         return type - index;
     }
-
 }
 
 #include <vector>
 int main()
 {
     MyV::myVector a;
-
-    for (int i = 0; i < 10; i++)
-    {
-        a.push_back((i + 1));
-    }
-    a.insert(a.begin() + 6, 25);
-    
-    for (auto it = a.begin(); it != a.end(); ++it)
-    {
-        std::cout << *it << ' ';
-    }
-    std::cout << std::endl;
-    std::cout << "mv1 capacity = " << a.capacity() << " mv1 size = " << a.size() << std::endl;
-
-    a.insert(a.end() - 4, 1000);
-
-    for (auto it = a.begin(); it != a.end(); ++it)
-    {
-        std::cout << *it << ' ';
-    }
-    std::cout << std::endl;
-    std::cout << "mv1 capacity = " << a.capacity() << " mv1 size = " << a.size() << std::endl;
-
-    a.erase(a.begin() + 1);
-
-    for (auto it = a.begin(); it != a.end(); ++it)
-    {
-        std::cout << *it << ' ';
-    }
-    std::cout << std::endl;
-    std::cout << "mv1 capacity = " << a.capacity() << " mv1 size = " << a.size() << std::endl;
-
-    MyV::myVector b;
-    for (int i = 0; i < 5; i++)
-    {
-        b.push_back((i + 1) * 20);
-    }
-
-    for (auto it = b.begin(); it != b.end(); ++it)
-    {
-        std::cout << *it << ' ';
-    }
-    
-    std::cout << std::endl;
-    std::cout << "mv1 capacity = " << b.capacity() << " mv1 size = " << b.size() << std::endl;
-
-
-    a.insert(a.begin() + 1, b.begin() + 1, b.begin() + 4);
-
-    for (auto it = a.begin(); it != a.end(); ++it)
-    {
-        std::cout << *it << ' ';
-    }
-
-    std::cout << std::endl;
-    std::cout << "mv1 capacity = " << a.capacity() << " mv1 size = " << a.size() << std::endl;
-
-
-    a.erase(a.begin() + 2, a.begin() + 5);
-
-
-    for (auto it = a.begin(); it != a.end(); ++it)
-    {
-        std::cout << *it << ' ';
-    }
-
-    std::cout << std::endl;
-    std::cout << "mv1 capacity = " << a.capacity() << " mv1 size = " << a.size() << std::endl;
-
     return 0;
 }
