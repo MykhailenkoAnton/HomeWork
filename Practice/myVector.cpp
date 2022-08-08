@@ -78,6 +78,9 @@ namespace MyV
         void reverse();
         void insert(int * it, const int & value);
         void erase(int * it);
+        void erase(int * it1, int * it2);
+        void erase(const Iterator<int> & it1, int * it2);
+        void erase(int * it1, const Iterator<int> & it2);
         
     public:
         friend std::ostream & operator<<(std::ostream & os, const myVector & mv);
@@ -289,6 +292,55 @@ namespace MyV
 
     }
 
+
+    void myVector::erase(int * it1, int * it2)
+    {
+        Iterator<int> IT_1(it1);
+        Iterator<int> IT_2(it2);
+        while (IT_1 != IT_2)
+        {
+            for (auto it = IT_1 + 1; it != end(); it++)
+            {
+                *(it - 1) = *it;
+            }
+            clearMemory();
+            --_size;
+            --IT_2;
+        }
+    }
+
+    void myVector::erase(const Iterator<int> & it1, int * it2)
+    {
+        Iterator<int>IT_2(it2);
+        Iterator<int> IT_1(it1);
+        while (IT_1 != IT_2)
+        {
+            for (auto it = IT_1 + 1; it != end(); it++)
+            {
+                *(it - 1) = *it;
+            }
+            clearMemory();
+            --_size;
+            --IT_2;
+        }
+    }
+
+    void myVector::erase(int * it1, const Iterator<int> & it2)
+    {
+        Iterator<int>IT_2(it2);
+        Iterator<int> IT_1(it1);
+        while (IT_1 != IT_2)
+        {
+            for (auto it = IT_1 + 1; it != end(); it++)
+            {
+                *(it - 1) = *it;
+            }
+            clearMemory();
+            --_size;
+            --IT_2;
+        }
+    }
+
     myVector::myVector(const myVector & mv)
     {
         _array = new int[mv._capacity];
@@ -455,5 +507,8 @@ int main()
     }
     std::cout << std::endl;
     std::cout << "mv1 capacity = " << a.capacity() << " mv1 size = " << a.size() << std::endl;
+
+
+    
     return 0;
 }
