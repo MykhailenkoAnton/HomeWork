@@ -7,7 +7,7 @@
 # add_executable(home C++_Learning/tasks_from_google.cpp)
 
 
-cmake_minimum_required(VERSION 3.13)  # CMake version check
+cmake_minimum_required(VERSION 3.12)  # CMake version check
 project(MyStudies)                       # Create project "My"
 set(CMAKE_CXX_STANDARD 11)            # Enable c++14 standard
 

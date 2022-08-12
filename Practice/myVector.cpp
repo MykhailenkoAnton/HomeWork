@@ -567,11 +567,11 @@ int main()
     a1.push_back(13.5);
     a1.push_back(323.31);
     a1.push_back(123.131);
-
+	
     for (auto i = a1.begin(); i != a1.end(); i++)
     {
         std::cout << *i << ' ';
     }
-    
+	std::cin.get();
     return 0;
 }
