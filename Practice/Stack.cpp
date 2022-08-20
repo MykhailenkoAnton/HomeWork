@@ -1,11 +1,12 @@
 #include <iostream>
 
+template <typename Type>
 class MyStack
 {
 public:
-	MyStack(int size = 10);
+	MyStack(Type size = 10);
 	~MyStack();
-	bool push_back(const int& value);
+	bool push_back(const Type& value);
 	bool pop_back();
 
 	bool isFull();
@@ -13,29 +14,33 @@ public:
 
 	int size();
 private:
-	int * element;
+	Type* element;
 	int top;
 	int Size;
 };
 
-MyStack::MyStack(int size)
+template <typename Type>
+MyStack<Type>::MyStack(Type size)
 {
 	Size = size;
-	element = new int[Size];
+	element = new Type[Size];
 	top = 0;
 }
 
-MyStack::~MyStack()
+template <typename Type>
+MyStack<Type>::~MyStack()
 {
 	delete [] element;
 }
 
-int MyStack::size()
+template <typename Type>
+int MyStack<Type>::size()
 {
 	return top;
 }
 
-bool MyStack::push_back(const int& value)
+template <typename Type>
+bool MyStack<Type>::push_back(const Type& value)
 {
 	if (!isFull())
 	{
@@ -49,7 +54,8 @@ bool MyStack::push_back(const int& value)
 
 }
 
-bool MyStack::pop_back()
+template <typename Type>
+bool MyStack<Type>::pop_back()
 {
 	if (!isEmpty())
 	{
@@ -64,12 +70,14 @@ bool MyStack::pop_back()
 	}
 }
 
-bool MyStack::isFull()
+template <typename Type>
+bool MyStack<Type>::isFull()
 {
 	return top == Size;
 }
 
-bool MyStack::isEmpty()
+template <typename Type>
+bool MyStack<Type>::isEmpty()
 {
 	return top == 0;
 }
@@ -78,11 +86,11 @@ bool MyStack::isEmpty()
 
 int main()
 {
-	MyStack MS;
+	MyStack<double> MS;
 
-	for (int i = 0; i < 11; i++)
+	for (double i = 0.14; i < 2.23; i += 0.15)
 	{
-		MS.push_back(i + 1);
+		MS.push_back(i);
 	}
 
 	std::cout << "size = " << MS.size() << std::endl;
