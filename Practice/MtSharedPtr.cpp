@@ -154,10 +154,11 @@ int main()
 			shr_ptr<MyClass> ptr2;
 			ptr2 = ptr1;
 
-			std::cout << ptr1.get() << std::endl;
 			std::cout << ptr2.get() << std::endl;
+			std::cout << ptr2.GetCount() << std::endl;
 		}
-
+		std::cout << ptr1.get() << std::endl;
+		std::cout << ptr1.GetCount() << std::endl;
 		
 	}
 	return 0;
