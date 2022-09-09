@@ -5,10 +5,8 @@ const int MAX = 10;
 // 13, 13, 13, 42, 111, 42, 12, 12, 22, 13
 int uniq(int * arr, int size)
 {
-    int temp;
     for (size_t i = 0; i < size; i++)
     {
-        temp = arr[i];
         bool res = false;
         for (size_t j = 0; j < size; j++)
         {
@@ -32,7 +30,7 @@ int uniq(int * arr, int size)
 
 int main()
 {
-    int arr[MAX] = {13, 13, 13, 42, 12, 42, 12, 12, 22, 13};
+    int arr[MAX] = {13, 13, 13, 42, 103, 42, 12, 12, 12, 13};
 
     int result = uniq(arr, MAX);
     if (result == -1)

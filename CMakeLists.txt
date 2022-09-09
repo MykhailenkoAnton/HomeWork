@@ -16,7 +16,7 @@ set(SOURCE_FILES
     # C++_Learning/tasks_from_google.cpp
     # C++_Learning/sen.cpp
     # Quest/fibonacci.cpp
-    Practice/MtSharedPtr.cpp
+    Practice/ReverseNum.cpp
 )
 
 # Add headers files.
@@ -30,7 +30,7 @@ set(DIRS
     Practice
 )
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread")
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread")
 
 # Add executable target.
 add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES})

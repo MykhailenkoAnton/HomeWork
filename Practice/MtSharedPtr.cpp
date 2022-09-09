@@ -161,5 +161,9 @@ int main()
 		std::cout << ptr1.GetCount() << std::endl;
 		
 	}
+
+	int a;
+
+	const int* ptr;
 	return 0;
 }
